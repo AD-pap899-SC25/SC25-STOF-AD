@@ -1,9 +1,0 @@
-# ninja log v5
-1	799	1745291090784911445	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/rowwise_attn_sliding_cuda.o	b844472076118e20
-0	12527	1745291102502896535	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/rowwise_attn_sliding.o	d82d512ef0178757
-2	4747	1745291107510892499	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/block_attn_mask_cuda.o	25e0ccdd7c272611
-2	12726	1745291115482888914	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/block_attn_mask.o	8553fa462c45df94
-4	844	1745291116599888688	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/rowwise_attn_full_cuda.o	6d883e3aa2f2c9be
-3	12498	1745291128250890320	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/rowwise_attn_full.o	8ed8859d767925f
-3	858	1745291129377890862	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/rowwise_attn_mask_cuda.o	b26955ccff17d999
-3	12542	1745291141055900377	/fusion-SC25/SC25-STOF-AD/src/build/temp.linux-x86_64-cpython-310/ops/src/rowwise_attn_mask.o	ba325083afdbcef0
