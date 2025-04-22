@@ -1,0 +1,26 @@
+
+Operator , Batch , SeqLen , Hidden , single_config (ms) , fused_config (ms) 
+Bias+Layernorm,  1 ,    128 ,    512 ,  0.087  , 0.086
+Bias+Layernorm,  1 ,   4096 ,    512 ,  0.087  , 0.085
+Bias+Layernorm,  8 ,    128 ,    512 ,  0.087  , 0.085 
+Bias+Layernorm,  8 ,   4096 ,    512 ,  0.087  , 0.085
+Bias+Layernorm,  1 ,    128 ,    1024 , 0.111 ,  0.084
+Bias+Layernorm,  1 ,   4096 ,    1024 , 0.108  , 0.085
+Bias+Layernorm,  8 ,    128 ,    1024 , 0.097 ,  0.085
+Bias+Layernorm,  8 ,   4096 ,    1024 , 0.142  , 0.142
+GEMM+Layernorm,  1 ,    128 ,    512 ,  0.687  , 0.094
+GEMM+Layernorm,  1 ,   4096 ,    512 ,  0.699  , 0.094 
+GEMM+Layernorm,  8 ,    128 ,    512 ,  0.648  , 0.095
+GEMM+Layernorm,  8 ,   4096 ,    512 ,  7.281  , 0.144 
+GEMM+Layernorm,  1 ,    128 ,    1024 , 2.440  , 0.741 
+GEMM+Layernorm,  1 ,   4096 ,    1024 , 2.450 , 1.352 
+GEMM+Layernorm,  8 ,    128 ,    1024 , 2.410  , 0.714 
+GEMM+Layernorm,  8 ,   4096 ,    1024 , 28.586 , 14.089
+GEMM+GEMM,  1 ,    128 ,    512 ,  0.474  , 0.083
+GEMM+GEMM,  1 ,   4096 ,    512 ,  0.564  , 0.555
+GEMM+GEMM,  8 ,    128 ,    512 ,  0.475  , 0.180 
+GEMM+GEMM,  8 ,   4096 ,    512 ,  4.277  , 4.251
+GEMM+GEMM,  1 ,    128 ,    1024 , 1.671 ,  0.286
+GEMM+GEMM,  1 ,   4096 ,    1024 , 5.071  , 3.785
+GEMM+GEMM,  8 ,    128 ,    1024 , 1.633 ,  1.568
+GEMM+GEMM,  8 ,   4096 ,    1024 , 31.406 , 31.182

@@ -1,0 +1,25 @@
+Operator , Batch , SeqLen , Hidden , Triton (ms) , PyTorch (ms) , Speedup 
+Bias+Layernorm, 1 ,  128 ,  512, 0.050 , 0.026 
+Bias+Layernorm, 1 , 4096 ,  512, 0.048 , 0.033 
+Bias+Layernorm, 8 ,  128 ,  512, 0.048 , 0.025 
+Bias+Layernorm, 8 , 4096 ,  512, 0.145 , 0.221 
+Bias+Layernorm, 1 ,  128 , 1024, 0.048 , 0.025 
+Bias+Layernorm, 1 , 4096 , 1024, 0.049 , 0.053 
+Bias+Layernorm, 8 ,  128 , 1024, 0.049 , 0.025 
+Bias+Layernorm, 8 , 4096 , 1024, 0.220 , 0.306 
+GEMM+Layernorm, 1 ,  128 ,  512, 0.066 , 0.092 
+GEMM+Layernorm, 1 , 4096 ,  512, 0.066 , 2.581 
+GEMM+Layernorm, 8 ,  128 ,  512, 0.073 , 0.098 
+GEMM+Layernorm, 8 , 4096 ,  512, 0.188 , 4.867 
+GEMM+Layernorm, 1 ,  128 , 1024, 1.233 , 0.180 
+GEMM+Layernorm, 1 , 4096 , 1024, 3.805 , 5.162 
+GEMM+Layernorm, 8 ,  128 , 1024, 1.414 , 0.206 
+GEMM+Layernorm, 8 , 4096 , 1024, 28.397 , 9.818
+GEMM+GEMM, 1 ,   128 ,   512 ,0.087  ,0.075 
+GEMM+GEMM, 1 ,  4096 ,   512 ,0.552  ,0.098 
+GEMM+GEMM, 1 ,   128 ,  1024 ,0.327  ,0.131 
+GEMM+GEMM, 1 ,  4096 ,  1024 ,3.443  ,0.300 
+GEMM+GEMM, 8 ,   128 ,   512 ,0.362  ,0.070 
+GEMM+GEMM, 8 ,  4096 ,   512 ,4.212  ,0.613 
+GEMM+GEMM, 8 ,   128 ,  1024 ,2.330  ,0.161 
+GEMM+GEMM, 8 ,  4096 ,  1024 ,35.094  ,2.301

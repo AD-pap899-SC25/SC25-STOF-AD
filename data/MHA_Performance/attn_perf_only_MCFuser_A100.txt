@@ -1,0 +1,50 @@
+
+ bs:1 | h_num:12 | seq:128  |  MCFuser     : 0.281 ms / iter
+
+
+ bs:1 | h_num:12 | seq:256  |  MCFuser     : 0.257 ms / iter
+
+
+ bs:1 | h_num:12 | seq:512  |  MCFuser     : 0.255 ms / iter
+
+
+ bs:1 | h_num:12 | seq:1024  |  MCFuser     : 0.252 ms / iter
+
+
+ bs:1 | h_num:12 | seq:2048  |  MCFuser     : 1.262 ms / iter
+
+
+ bs:1 | h_num:12 | seq:4096  |  MCFuser     : 3.862 ms / iter
+
+
+ bs:8 | h_num:12 | seq:128  |  MCFuser     : 0.265 ms / iter
+
+
+ bs:8 | h_num:12 | seq:256  |  MCFuser     : 0.276 ms / iter
+
+
+ bs:8 | h_num:12 | seq:512  |  MCFuser     : 0.276 ms / iter
+
+
+ bs:8 | h_num:12 | seq:1024  |  MCFuser     : 0.761 ms / iter
+
+
+ bs:8 | h_num:12 | seq:2048  |  MCFuser     : 4.690 ms / iter
+
+
+ bs:16 | h_num:12 | seq:128  |  MCFuser     : 0.256 ms / iter
+
+
+ bs:16 | h_num:12 | seq:256  |  MCFuser     : 0.318 ms / iter
+
+
+ bs:16 | h_num:12 | seq:512  |  MCFuser     : 0.395 ms / iter
+
+
+ bs:16 | h_num:12 | seq:1024  |  MCFuser     : 4.034 ms / iter
+
+
+ bs:16 | h_num:12 | seq:2048  |  MCFuser     : 2.725 ms / iter
+
+
+

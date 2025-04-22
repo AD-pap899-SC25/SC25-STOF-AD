@@ -1,0 +1,75 @@
+e2e bert_small | bs:1 | seq:128  |  Torch Native    : 2.609 ms / iter
+e2e bert_small | bs:1 | seq:128  |  STOF MHA        : 1.979 ms / iter
+e2e bert_small | bs:1 | seq:128  |  STOF Compiled   : 1.873 ms / iter
+e2e bert_small | bs:1 | seq:128  |  STOF            : 1.653  ms / iter
+
+e2e bert_base | bs:1 | seq:128  |  Torch Native    : 4.970 ms / iter
+e2e bert_base | bs:1 | seq:128  |  STOF MHA        : 3.341 ms / iter
+e2e bert_base | bs:1 | seq:128  |  STOF Compiled   : 2.301 ms / iter
+e2e bert_base | bs:1 | seq:128  |  STOF            : 2.286 ms / iter
+
+e2e bert_large | bs:1 | seq:128  |  Torch Native    : 10.106 ms / iter
+e2e bert_large | bs:1 | seq:128  |  STOF MHA        : 6.926 ms / iter
+e2e bert_large | bs:1 | seq:128  |  STOF Compiled   : 5.420 ms / iter
+e2e bert_large | bs:1 | seq:128  |  STOF            : 4.239 ms / iter
+
+e2e gpt | bs:1 | seq:128  |  Torch Native    : 6.137 ms / iter
+e2e gpt | bs:1 | seq:128  |  STOF MHA        : 4.479 ms / iter
+e2e gpt | bs:1 | seq:128  |  STOF Compiled   : 2.232 ms / iter
+e2e gpt | bs:1 | seq:128  |  STOF            : 2.181 ms / iter
+
+e2e t5 | bs:1 | seq:128  |  Torch Native    : 13.758 ms / iter
+e2e t5 | bs:1 | seq:128  |  STOF MHA        : 9.950 ms / iter
+e2e t5 | bs:1 | seq:128  |  STOF Compiled   : 7.860 ms / iter
+e2e t5 | bs:1 | seq:128  |  STOF            : 6.362 ms / iter
+
+e2e bert_small | bs:8 | seq:512  |  Torch Native    : 5.819 ms / iter
+e2e bert_small | bs:8 | seq:512  |  STOF MHA        : 2.903 ms / iter
+e2e bert_small | bs:8 | seq:512  |  STOF Compiled   : 4.577 ms / iter
+e2e bert_small | bs:8 | seq:512  |  STOF            : 2.505 ms / iter
+
+e2e bert_base | bs:8 | seq:512  |  Torch Native    : 12.566 ms / iter
+e2e bert_base | bs:8 | seq:512  |  STOF MHA        : 8.424 ms / iter
+e2e bert_base | bs:8 | seq:512  |  STOF Compiled   : 8.864 ms / iter
+e2e bert_base | bs:8 | seq:512  |  STOF            : 6.955 ms / iter
+
+e2e bert_large | bs:8 | seq:512  |  Torch Native    : 34.628 ms / iter
+e2e bert_large | bs:8 | seq:512  |  STOF MHA        : 21.306 ms / iter
+e2e bert_large | bs:8 | seq:512  |  STOF Compiled   : 30.954 ms / iter
+e2e bert_large | bs:8 | seq:512  |  STOF            : 20.161 ms / iter
+
+e2e gpt | bs:8 | seq:512  |  Torch Native    : 16.583 ms / iter
+e2e gpt | bs:8 | seq:512  |  STOF MHA        : 9.183 ms / iter
+e2e gpt | bs:8 | seq:512  |  STOF Compiled   : 10.942 ms / iter
+e2e gpt | bs:8 | seq:512  |  STOF            : 6.969 ms / iter
+
+e2e t5 | bs:8 | seq:512  |  Torch Native    : 32.695 ms / iter
+e2e t5 | bs:8 | seq:512  |  STOF MHA        : 22.022 ms / iter
+e2e t5 | bs:8 | seq:512  |  STOF Compiled   : 24.128 ms / iter
+e2e t5 | bs:8 | seq:512  |  STOF            : 18.568 ms / iter
+
+e2e bert_small | bs:16 | seq:2048  |  Torch Native    : 89.942 ms / iter
+e2e bert_small | bs:16 | seq:2048  |  STOF MHA        : 29.897 ms / iter
+e2e bert_small | bs:16 | seq:2048  |  STOF Compiled   : 40.732 ms / iter
+e2e bert_small | bs:16 | seq:2048  |  STOF            : 21.202 ms / iter
+
+e2e bert_base | bs:16 | seq:2048  |  Torch Native    : 273.827 ms / iter
+e2e bert_base | bs:16 | seq:2048  |  STOF MHA        : 83.989 ms / iter
+e2e bert_base | bs:16 | seq:2048  |  STOF Compiled   : 120.164 ms / iter
+e2e bert_base | bs:16 | seq:2048  |  STOF            : 63.285 ms / iter
+
+e2e bert_large | bs:16 | seq:2048  |  Torch Native    : 748.687 ms / iter
+e2e bert_large | bs:16 | seq:2048  |  STOF MHA        : 263.438 ms / iter
+e2e bert_large | bs:16 | seq:2048  |  STOF Compiled   : 403.709 ms / iter
+e2e bert_large | bs:16 | seq:2048  |  STOF            : 184.563 ms / iter
+
+e2e gpt | bs:16 | seq:2048  |  Torch Native    : 303.441 ms / iter
+e2e gpt | bs:16 | seq:2048  |  STOF MHA        : 104.075 ms / iter
+e2e gpt | bs:16 | seq:2048  |  STOF Compiled   : 164.488 ms / iter
+e2e gpt | bs:16 | seq:2048  |  STOF            : 89.153 ms / iter
+
+e2e t5 | bs:16 | seq:2048  |  Torch Native    : 718.800 ms / iter
+e2e t5 | bs:16 | seq:2048  |  STOF MHA        : 323.672 ms / iter
+e2e t5 | bs:16 | seq:2048  |  STOF Compiled   : 460.582 ms / iter
+e2e t5 | bs:16 | seq:2048  |  STOF            : 298.740 ms / iter
+

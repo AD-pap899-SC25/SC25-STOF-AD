@@ -1,0 +1,89 @@
+ PyTorch version: 2.6.0+cu126
+ CUDA version 	: 12.6
+ GPU cuda:(0) 	: NVIDIA GeForce RTX 4090 
+ --------------------------------------------------
+ [Benchmark] Unified bench test for BigBird_Mask
+
+
+ bs:1 | h_num:12 | seq:128  |  MCFuser     : 0.350 ms / iter
+
+
+
+ bs:1 | h_num:12 | seq:256  |  MCFuser     : 0.325 ms / iter
+
+
+
+
+ bs:1 | h_num:12 | seq:512  |  MCFuser     : 0.325 ms / iter
+
+
+
+
+ bs:1 | h_num:12 | seq:1024  |  MCFuser     : 0.286 ms / iter
+
+
+
+ 
+ bs:1 | h_num:12 | seq:2048  |  MCFuser     : 1.034 ms / iter
+
+
+
+
+ bs:1 | h_num:12 | seq:4096  |  MCFuser     : 2.905 ms / iter
+
+
+
+
+ bs:8 | h_num:12 | seq:128  |  MCFuser     : 0.286 ms / iter
+
+
+
+
+ bs:8 | h_num:12 | seq:256  |  MCFuser     : 0.368 ms / iter
+
+
+
+
+ bs:8 | h_num:12 | seq:512  |  MCFuser     : 0.342 ms / iter
+
+
+
+
+ bs:8 | h_num:12 | seq:1024  |  MCFuser     : 0.474 ms / iter
+
+
+
+
+ bs:8 | h_num:12 | seq:2048  |  MCFuser     : 3.755 ms / iter
+
+
+
+
+
+
+
+ bs:16 | h_num:12 | seq:128  |  MCFuser     : 0.341 ms / iter
+
+
+
+
+ bs:16 | h_num:12 | seq:256  |  MCFuser     : 0.358 ms / iter
+
+
+
+
+ bs:16 | h_num:12 | seq:512  |  MCFuser     : 0.370 ms / iter
+
+
+
+
+ bs:16 | h_num:12 | seq:1024  |  MCFuser     : 2.830 ms / iter
+
+
+
+
+ bs:16 | h_num:12 | seq:2048  |  MCFuser     : 2.594 ms / iter
+
+
+
+

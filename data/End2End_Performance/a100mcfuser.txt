@@ -1,0 +1,285 @@
+Script started on 2025-04-09 16:06:13+00:00 [TERM="xterm" TTY="/dev/pts/8" COLUMNS="120" LINES="29"]
+ PyTorch version: 2.6.0+cu126
+ CUDA version 	: 12.6
+ GPU cuda:(0) 	: NVIDIA A100-PCIE-40GB
+
+ TVM GPU Arch	: 8.0
+--------------------------------------------------
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:1 | h_num:8 | seq:128  |  MCFuser        : 4.696 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:128  |  MCFuser        : 9.676 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:1 | h_num:16 | seq:128  |  MCFuser        : 19.323 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:128  |  MCFuser        : 11.180 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:128  |  MCFuser        : 18.293 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:1 | h_num:8 | seq:256  |  MCFuser        : 4.764 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:256  |  MCFuser        : 9.294 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:1 | h_num:16 | seq:256  |  MCFuser        : 19.415 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:256  |  MCFuser        : 11.080 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:256  |  MCFuser        : 17.913 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:1 | h_num:8 | seq:512  |  MCFuser        : 4.989 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:512  |  MCFuser        : 9.659 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:1 | h_num:16 | seq:512  |  MCFuser        : 19.717 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:512  |  MCFuser        : 10.798 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:512  |  MCFuser        : 17.799 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:1 | h_num:8 | seq:1024  |  MCFuser        : 4.861 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:1024  |  MCFuser        : 10.085 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:1 | h_num:16 | seq:1024  |  MCFuser        : 20.813 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:1024  |  MCFuser        : 11.139 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:1024  |  MCFuser        : 18.151 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:1 | h_num:8 | seq:2048  |  MCFuser        : 7.286 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:2048  |  MCFuser        : 25.457 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:1 | h_num:16 | seq:2048  |  MCFuser        : 33.820 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:2048  |  MCFuser        : 26.711 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:2048  |  MCFuser        : 50.490 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:1 | h_num:8 | seq:4096  |  MCFuser        : 15.035 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:4096  |  MCFuser        : 75.166 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:1 | h_num:16 | seq:4096  |  MCFuser        : 201.003 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:4096  |  MCFuser        : 79.167 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:1 | h_num:12 | seq:4096  |  MCFuser        : 141.436 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:8 | h_num:8 | seq:128  |  MCFuser        : 4.918 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:128  |  MCFuser        : 9.680 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:8 | h_num:16 | seq:128  |  MCFuser        : 20.480 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:128  |  MCFuser        : 11.033 ms / iter
+ 
+  [model] Unified bench test for t5
+ [t5] Unified bench test for Sliding_Mask
+ bs:8 | h_num:12 | seq:128  |  Torch Naive    : 14.681 ms / iter
+ bs:8 | h_num:12 | seq:128  |  Torch Compile  : 7.634 ms / iter
+ bs:8 | h_num:12 | seq:128  |  ByteTransformer: 13.722 ms / iter
+ bs:8 | h_num:12 | seq:128  |  MCFuser        : 19.032 ms / iter
+
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:8 | h_num:8 | seq:256  |  MCFuser        : 4.884 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:256  |  MCFuser        : 10.150 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:8 | h_num:16 | seq:256  |  MCFuser        : 21.079 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:256  |  MCFuser        : 12.398 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:256  |  MCFuser        : 19.294 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:8 | h_num:8 | seq:512  |  MCFuser        : 5.789 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:512  |  MCFuser        : 13.074 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:8 | h_num:16 | seq:512  |  MCFuser        : 34.878 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:512  |  MCFuser        : 17.315 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:512  |  MCFuser        : 31.139 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:8 | h_num:8 | seq:1024  |  MCFuser        : 10.148 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:1024  |  MCFuser        : 33.344 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:8 | h_num:16 | seq:1024  |  MCFuser        : 101.257 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:1024  |  MCFuser        : 40.566 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:1024  |  MCFuser        : 80.641 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:8 | h_num:8 | seq:2048  |  MCFuser        : 29.488 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:2048  |  MCFuser        : 129.118 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:8 | h_num:16 | seq:2048  |  MCFuser        : 247.003 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:2048  |  MCFuser        : 143.651 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:8 | h_num:12 | seq:2048  |  MCFuser        : 310.073 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+
+Script done on 2025-04-09 16:15:43+00:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2025-04-09 16:16:59+00:00 [TERM="xterm" TTY="/dev/pts/8" COLUMNS="120" LINES="29"]
+ PyTorch version: 2.6.0+cu126
+ CUDA version 	: 12.6
+ GPU cuda:(0) 	: NVIDIA A100-PCIE-40GB
+
+ TVM GPU Arch	: 8.0
+--------------------------------------------------
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:16 | h_num:8 | seq:128  |  MCFuser        : 4.847 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:128  |  MCFuser        : 10.934 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:16 | h_num:16 | seq:128  |  MCFuser        : 21.110 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:128  |  MCFuser        : 11.832 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:128  |  MCFuser        : 19.540 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:16 | h_num:8 | seq:256  |  MCFuser        : 4.809 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:256  |  MCFuser        : 13.890 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:16 | h_num:16 | seq:256  |  MCFuser        : 33.137 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:256  |  MCFuser        : 16.977 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:256  |  MCFuser        : 27.038 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:16 | h_num:8 | seq:512  |  MCFuser        : 9.453 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:512  |  MCFuser        : 21.573 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:16 | h_num:16 | seq:512  |  MCFuser        : 62.785 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:512  |  MCFuser        : 28.669 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:512  |  MCFuser        : 56.439 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:16 | h_num:8 | seq:1024  |  MCFuser        : 29.752 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:1024  |  MCFuser        : 94.371 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:16 | h_num:16 | seq:1024  |  MCFuser        : 250.693 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:1024  |  MCFuser        : 108.420 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:1024  |  MCFuser        : 188.410 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ bs:16 | h_num:8 | seq:2048  |  MCFuser        : 102.243 ms / iter
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:2048  |  MCFuser        : 171.924 ms / iter
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ bs:16 | h_num:16 | seq:2048  |  MCFuser        : 643.481 ms / iter
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:2048  |  MCFuser        : 199.610 ms / iter
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+ bs:16 | h_num:12 | seq:2048  |  MCFuser        : 533.108 ms / iter
+ [model] Unified bench test for bert_small
+ [bert_small] Unified bench test for BigBird_Mask
+ [model] Unified bench test for bert_base
+ [bert_base] Unified bench test for BigBird_Mask
+ [model] Unified bench test for bert_large
+ [bert_large] Unified bench test for BigBird_Mask
+ [model] Unified bench test for gpt
+ [gpt] Unified bench test for BigBird_Mask
+ [model] Unified bench test for t5
+ [t5] Unified bench test for BigBird_Mask
+
+Script done on 2025-04-09 16:23:24+00:00 [COMMAND_EXIT_CODE="0"]

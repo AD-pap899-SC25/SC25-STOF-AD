@@ -1,0 +1,5 @@
+# ninja log v5
+1	3894	1745291146730907554	/fusion-SC25/SC25-STOF-AD/src/Bytetr_MCFuser/build/temp.linux-x86_64-cpython-310/ops/src/bytetr_longattn_cuda.o	3d04d52251557983
+0	12690	1745291155521921899	/fusion-SC25/SC25-STOF-AD/src/Bytetr_MCFuser/build/temp.linux-x86_64-cpython-310/ops/src/bytetr_longattn.o	9689b362ea3e96d2
+4	1462	1745291157241925159	/fusion-SC25/SC25-STOF-AD/src/Bytetr_MCFuser/build/temp.linux-x86_64-cpython-310/ops/src/bytetr_attn_cuda.o	1c80e230ed153d08
+3	12579	1745291168349949756	/fusion-SC25/SC25-STOF-AD/src/Bytetr_MCFuser/build/temp.linux-x86_64-cpython-310/ops/src/bytetr_attn.o	2683919755429e94

@@ -1,0 +1,395 @@
+Script started on 2025-04-10 07:23:15+00:00 [TERM="xterm" TTY="/dev/pts/8" COLUMNS="103" LINES="15"]
+e2e bert_small | bs:1 | seq:128  |  Torch Native    : 2.609 ms / iter
+e2e bert_small | bs:1 | seq:128  |  Torch Compile   : 1.844 ms / iter
+e2e bert_small | bs:1 | seq:128  |  ByteTransformer: 2.076 ms / iter
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 2.59s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 1.18s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+e2e bert_base | bs:1 | seq:128  |  Torch Native    : 4.970 ms / iter
+e2e bert_base | bs:1 | seq:128  |  Torch Compile   : 4.272 ms / iter
+e2e bert_base | bs:1 | seq:128  |  ByteTransformer: 4.009 ms / iter
+e2e bert_large | bs:1 | seq:128  |  Torch Native    : 10.106 ms / iter
+e2e bert_large | bs:1 | seq:128  |  Torch Compile   : 6.320 ms / iter
+e2e bert_large | bs:1 | seq:128  |  ByteTransformer: 10.590 ms / iter
+e2e gpt | bs:1 | seq:128  |  Torch Native    : 6.137 ms / iter
+e2e gpt | bs:1 | seq:128  |  Torch Compile   : 3.361 ms / iter
+e2e gpt | bs:1 | seq:128  |  ByteTransformer: 5.130 ms / iter
+e2e t5 | bs:1 | seq:128  |  Torch Native    : 13.758 ms / iter
+e2e t5 | bs:1 | seq:128  |  Torch Compile   : 9.484 ms / iter
+e2e t5 | bs:1 | seq:128  |  ByteTransformer: 12.100 ms / iter
+e2e bert_small | bs:1 | seq:256  |  Torch Native    : 2.531 ms / iter
+e2e bert_small | bs:1 | seq:256  |  Torch Compile   : 1.756 ms / iter
+e2e bert_small | bs:1 | seq:256  |  ByteTransformer: 2.048 ms / iter
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 2.53s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 1.19s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+e2e bert_base | bs:1 | seq:256  |  Torch Native    : 4.708 ms / iter
+e2e bert_base | bs:1 | seq:256  |  Torch Compile   : 3.216 ms / iter
+e2e bert_base | bs:1 | seq:256  |  ByteTransformer: 3.856 ms / iter
+e2e bert_large | bs:1 | seq:256  |  Torch Native    : 9.475 ms / iter
+e2e bert_large | bs:1 | seq:256  |  Torch Compile   : 8.099 ms / iter
+e2e bert_large | bs:1 | seq:256  |  ByteTransformer: 7.748 ms / iter
+e2e gpt | bs:1 | seq:256  |  Torch Native    : 5.932 ms / iter
+e2e gpt | bs:1 | seq:256  |  Torch Compile   : 3.166 ms / iter
+e2e gpt | bs:1 | seq:256  |  ByteTransformer: 5.125 ms / iter
+e2e t5 | bs:1 | seq:256  |  Torch Native    : 13.144 ms / iter
+e2e t5 | bs:1 | seq:256  |  Torch Compile   : 9.164 ms / iter
+e2e t5 | bs:1 | seq:256  |  ByteTransformer: 11.495 ms / iter
+e2e bert_small | bs:8 | seq:512  |  Torch Native    : 5.819 ms / iter
+e2e bert_small | bs:8 | seq:512  |  Torch Compile   : 3.108 ms / iter
+e2e bert_small | bs:8 | seq:512  |  ByteTransformer: 5.619 ms / iter
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 2.58s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 1.26s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+e2e bert_base | bs:8 | seq:512  |  Torch Native    : 12.566 ms / iter
+e2e bert_base | bs:8 | seq:512  |  Torch Compile   : 10.154 ms / iter
+e2e bert_base | bs:8 | seq:512  |  ByteTransformer: 12.942 ms / iter
+e2e bert_large | bs:8 | seq:512  |  Torch Native    : 34.628 ms / iter
+e2e bert_large | bs:8 | seq:512  |  Torch Compile   : 29.849 ms / iter
+e2e bert_large | bs:8 | seq:512  |  ByteTransformer: 34.184 ms / iter
+e2e gpt | bs:8 | seq:512  |  Torch Native    : 16.583 ms / iter
+e2e gpt | bs:8 | seq:512  |  Torch Compile   : 10.238 ms / iter
+e2e gpt | bs:8 | seq:512  |  ByteTransformer: 16.101 ms / iter
+e2e t5 | bs:8 | seq:512  |  Torch Native    : 32.695 ms / iter
+e2e t5 | bs:8 | seq:512  |  Torch Compile   : 27.840 ms / iter
+e2e t5 | bs:8 | seq:512  |  ByteTransformer: 32.648 ms / iter
+e2e bert_small | bs:8 | seq:1024  |  Torch Native    : 12.285 ms / iter
+e2e bert_small | bs:8 | seq:1024  |  Torch Compile   : 8.075 ms / iter
+e2e bert_small | bs:8 | seq:1024  |  ByteTransformer: 12.982 ms / iter
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 2.62s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 1.41s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+e2e bert_base | bs:8 | seq:1024  |  Torch Native    : 34.629 ms / iter
+e2e bert_base | bs:8 | seq:1024  |  Torch Compile   : 26.671 ms / iter
+e2e bert_base | bs:8 | seq:1024  |  ByteTransformer: 31.830 ms / iter
+e2e bert_large | bs:8 | seq:1024  |  Torch Native    : 96.389 ms / iter
+e2e bert_large | bs:8 | seq:1024  |  Torch Compile   : 76.368 ms / iter
+e2e bert_large | bs:8 | seq:1024  |  ByteTransformer: 90.240 ms / iter
+e2e gpt | bs:8 | seq:1024  |  Torch Native    : 41.908 ms / iter
+e2e gpt | bs:8 | seq:1024  |  Torch Compile   : 26.829 ms / iter
+e2e gpt | bs:8 | seq:1024  |  ByteTransformer: 39.037 ms / iter
+e2e t5 | bs:8 | seq:1024  |  Torch Native    : 90.548 ms / iter
+e2e t5 | bs:8 | seq:1024  |  Torch Compile   : 74.476 ms / iter
+e2e t5 | bs:8 | seq:1024  |  ByteTransformer: 85.621 ms / iter
+e2e bert_small | bs:16 | seq:2048  |  Torch Native    : 89.942 ms / iter
+e2e bert_small | bs:16 | seq:2048  |  Torch Compile   : 47.971 ms / iter
+ByteTransformer unsupported for seq_len > 1024
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 2.84s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 2.19s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+e2e bert_base | bs:16 | seq:2048  |  Torch Native    : 273.827 ms / iter
+e2e bert_base | bs:16 | seq:2048  |  Torch Compile   : 156.087 ms / iter
+ByteTransformer unsupported for seq_len > 1024
+e2e bert_large | bs:16 | seq:2048  |  Torch Native    : 748.687 ms / iter
+e2e bert_large | bs:16 | seq:2048  |  Torch Compile   : 440.771 ms / iter
+ByteTransformer unsupported for seq_len > 1024
+e2e gpt | bs:16 | seq:2048  |  Torch Native    : 303.441 ms / iter
+e2e gpt | bs:16 | seq:2048  |  Torch Compile   : 156.444 ms / iter
+ByteTransformer unsupported for seq_len > 1024
+e2e t5 | bs:16 | seq:2048  |  Torch Native    : 718.800 ms / iter
+e2e t5 | bs:16 | seq:2048  |  Torch Compile   : 448.486 ms / iter
+ByteTransformer unsupported for seq_len > 1024
+e2e bert_small | bs:16 | seq:4096  |  Torch Native    : 290.469 ms / iter
+e2e bert_small | bs:16 | seq:4096  |  Torch Compile   : 167.129 ms / iter
+ByteTransformer unsupported for seq_len > 1024
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 3.14s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+Triton autotuning for function batch_matmul_bias_layernorm_kernel finished after 3.24s; best config selected: BLOCK_SIZE_M: 32, BLOCK_SIZE_K: 32, num_warps: 4, num_ctas: 1, num_stages: 2, num_buffers_warp_spec: 0, num_consumer_groups: 0, reg_dec_producer: 0, reg_inc_consumer: 0, maxnreg: None;
+e2e bert_base | bs:16 | seq:4096  |  Torch Native    : 878.469 ms / iter
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 741, in <module>
+    torch_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 77, in bert_fwd_std
+    def bert_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/vp/cvpvoa3gqoellj2ze4rlkzcv2woqoyhhlt6teqnojfjynycrou4j.py", line 948, in call
+    buf64 = empty_strided_cuda((192, 4096, 4096), (16777216, 4096, 1), torch.float16)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 5.83 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 786586 has 32.40 GiB memory in use. Of the allocated memory 24.54 GiB is allocated by PyTorch, and 7.37 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+ByteTransformer unsupported for seq_len > 1024
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 829, in <module>
+    STOF_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 77, in bert_fwd_std
+    def bert_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/vp/cvpvoa3gqoellj2ze4rlkzcv2woqoyhhlt6teqnojfjynycrou4j.py", line 948, in call
+    buf64 = empty_strided_cuda((192, 4096, 4096), (16777216, 4096, 1), torch.float16)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 5.83 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 787509 has 32.40 GiB memory in use. Of the allocated memory 24.54 GiB is allocated by PyTorch, and 7.37 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 723, in <module>
+    inference_model(mask)
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 91, in bert_fwd_std
+    scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 8.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 7.50 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 788055 has 30.79 GiB memory in use. Of the allocated memory 28.95 GiB is allocated by PyTorch, and 1.35 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 741, in <module>
+    torch_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 77, in bert_fwd_std
+    def bert_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/me/cmepwjyfxvkv37marlai6ngwjngupe456xf7y5skgz3gq2yhrm76.py", line 1083, in call
+    buf64 = empty_strided_cuda((256, 4096, 4096), (16777216, 4096, 1), torch.float16)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 8.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 1.50 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 788310 has 36.79 GiB memory in use. Of the allocated memory 36.20 GiB is allocated by PyTorch, and 105.90 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+ByteTransformer unsupported for seq_len > 1024
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 829, in <module>
+    STOF_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 77, in bert_fwd_std
+    def bert_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/me/cmepwjyfxvkv37marlai6ngwjngupe456xf7y5skgz3gq2yhrm76.py", line 1083, in call
+    buf64 = empty_strided_cuda((256, 4096, 4096), (16777216, 4096, 1), torch.float16)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 8.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 1.50 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 789902 has 36.79 GiB memory in use. Of the allocated memory 36.20 GiB is allocated by PyTorch, and 105.90 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+e2e gpt | bs:16 | seq:4096  |  Torch Native    : 928.142 ms / iter
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 741, in <module>
+    torch_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 178, in gpt_base_fwd_std
+    def gpt_base_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/xo/cxoqhyrwwf35h2eflycpk42bn7pj6gkhr7tcy66rro3wkogfzmg3.py", line 959, in call
+    buf64 = empty_strided_cuda((192, 4096, 4096), (16777216, 4096, 1), torch.float16)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 5.83 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 790569 has 32.40 GiB memory in use. Of the allocated memory 24.54 GiB is allocated by PyTorch, and 7.37 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+ByteTransformer unsupported for seq_len > 1024
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 829, in <module>
+    STOF_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 178, in gpt_base_fwd_std
+    def gpt_base_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/xo/cxoqhyrwwf35h2eflycpk42bn7pj6gkhr7tcy66rro3wkogfzmg3.py", line 959, in call
+    buf64 = empty_strided_cuda((192, 4096, 4096), (16777216, 4096, 1), torch.float16)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 5.83 GiB is free. Process 723215 has 1.07 GiB memory in use. Process 791429 has 32.40 GiB memory in use. Of the allocated memory 24.54 GiB is allocated by PyTorch, and 7.37 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+e2e t5 | bs:16 | seq:4096  |  Torch Native    : 2271.373 ms / iter
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 741, in <module>
+    torch_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 282, in T5_base_fwd_std
+    def T5_base_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/kc/ckcxpfmaf4n7h5k4ld2t7ezmedqcpwlx4eyeb4aelqt7nopkeiba.py", line 3134, in call
+    buf512 = empty_strided_cuda((192, 4096, 4096), (16777216, 4096, 1), torch.float16)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 221.81 MiB is free. Process 723215 has 1.07 GiB memory in use. Process 792431 has 38.03 GiB memory in use. Of the allocated memory 36.25 GiB is allocated by PyTorch, and 1.28 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+ByteTransformer unsupported for seq_len > 1024
+Traceback (most recent call last):
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 829, in <module>
+    STOF_compiled_model_std(mask)
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/ct/dwh_test/attention-ops-cuda/end2end_single_point.py", line 282, in T5_base_fwd_std
+    def T5_base_fwd_std(mask):
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
+    return compiled_fn(full_args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
+    all_outs = call_func_at_runtime_with_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+                            ^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
+    outs = compiled_fn(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
+    return compiled_fn(runtime_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/ct/lib/python3.11/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+           ^^^^^^^^^^^^^^^^^
+  File "/tmp/torchinductor_root/kc/ckcxpfmaf4n7h5k4ld2t7ezmedqcpwlx4eyeb4aelqt7nopkeiba.py", line 3134, in call
+    buf512 = empty_strided_cuda((192, 4096, 4096), (16777216, 4096, 1), torch.float16)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.00 GiB. GPU 0 has a total capacity of 39.38 GiB of which 221.81 MiB is free. Process 723215 has 1.07 GiB memory in use. Process 793501 has 38.03 GiB memory in use. Of the allocated memory 36.25 GiB is allocated by PyTorch, and 1.28 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Script done on 2025-04-10 08:23:29+00:00 [COMMAND_EXIT_CODE="1"]
