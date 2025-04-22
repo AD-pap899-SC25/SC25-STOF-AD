@@ -1,0 +1,34 @@
+*.zip
+**/*.zip
+
+.vscode
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# C extensions
+*.so
+**/*.so
+
+*.egg
+**/*.egg
+*.o
+**/*.o
+
+*.nsys-rep
+**/*.nsys-rep
+
+*.ncu-rep
+**/*.ncu-rep
+
+build/
+**/build
+
+compared-candidate
+
+pytorch-build
+pytorch-vision-build
