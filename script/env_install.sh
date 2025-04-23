@@ -1,12 +1,9 @@
 #!/bin/bash
-# bash env_install.sh 80 0316AM A100
+# bash env_install.sh 80
 
-CUDAARCH=${1:-80}            #  A100:80 4090:89
-DATE=${2:-$(date +%Y%m%d)}   #  0319AM
-PLATFORM=${3:-"default"}     #  A100 | 4090
+CUDAARCH=${1:-80}  #  A100:80 4090:89
 
 echo "[SHELL INFO] CUDA Arch: sm_${CUDAARCH}"
-echo "[SHELL INFO] Date: ${DATE}"
 echo "[SHELL INFO] Platform: ${PLATFORM}"
 
 rm -f *.so

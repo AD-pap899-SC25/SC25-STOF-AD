@@ -3,9 +3,6 @@ import triton.language as tl
 import torch
 import time
 import torch.nn.functional as F
-import os
-
-os.environ["TRITON_PRINT_AUTOTUNING"] = "1"
 
 
 @triton.jit
@@ -15,8 +12,6 @@ def tanh(x):
 
 @triton.autotune(
     configs=[
-        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 64, 'BLOCK_SIZE_N': 32}),
-        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_N': 128}),
         triton.Config({'BLOCK_SIZE_M': 16, 'BLOCK_SIZE_H': 128, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_N': 256}),
         triton.Config({'BLOCK_SIZE_M': 32, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_N': 128}),
         triton.Config({'BLOCK_SIZE_M': 16, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 16, 'BLOCK_SIZE_N': 128}),
@@ -36,9 +31,9 @@ def triton_matmul_batch_kernel(
     BLOCK_SIZE_M: tl.constexpr, BLOCK_SIZE_H: tl.constexpr,
     BLOCK_SIZE_K: tl.constexpr, BLOCK_SIZE_N: tl.constexpr
 ):
-    pid_b = tl.program_id(axis=0)  # Batch 维度索引
-    pid_x = tl.program_id(axis=1)  # 列方向线程块 ID
-    pid_y = tl.program_id(axis=2)  # 行方向线程块 ID
+    pid_b = tl.program_id(axis=0)  
+    pid_x = tl.program_id(axis=1) 
+    pid_y = tl.program_id(axis=2) 
     
     row_start = pid_y * BLOCK_SIZE_M
     col_start = pid_x * BLOCK_SIZE_H
@@ -71,15 +66,15 @@ def triton_matmul_batch_kernel(
             
             T_einsum_2_data += tl.dot(a_1_data, b_1_data)
         
-        bias_mask = n_offsets < N
-        bias_data = tl.load(bias + pid_b * N + n_offsets, mask=bias_mask, other=0.0)
-        T_einsum_2_data += bias_data[None, :]
+        # bias_mask = n_offsets < N
+        # bias_data = tl.load(bias + pid_b * N + n_offsets, mask=bias_mask, other=0.0)
+        # T_einsum_2_data += bias_data[None, :]
         
-        sqrt_2_over_pi = 0.7978845608028654
-        x = T_einsum_2_data
-        x_cubed = x * x * x
-        inner = sqrt_2_over_pi * (x + 0.044715 * x_cubed)
-        T_einsum_2_data = 0.5 * x * (1.0 + tanh(inner))
+        # sqrt_2_over_pi = 0.7978845608028654
+        # x = T_einsum_2_data
+        # x_cubed = x * x * x
+        # inner = sqrt_2_over_pi * (x + 0.044715 * x_cubed)
+        # T_einsum_2_data = 0.5 * x * (1.0 + tanh(inner))
         
         T_einsum_1_data += tl.dot(T_einsum_2_data.to(tl.float16), d_1_data)
     
@@ -105,15 +100,11 @@ def triton_matmul_batch(a, b, d, bias):
     )
     return output
 
-# def pytorch_matmul(a, b, d):
-#     # 使用爱因斯坦求和约定计算 A @ B @ D
-#     c = torch.einsum('mk,kn,np->mp', a, b, d)
-#     return c
 
 def pytorch_matmul_batch(a, b, d, bias):
     c = torch.einsum('bik,bkj->bij', a, b)
-    c = c + bias
-    c = F.gelu(c)
+    # c = c + bias
+    # c = F.gelu(c)
     e = torch.einsum('bij,bjk->bik', c, d)
     return e
 
@@ -121,11 +112,11 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 性能测试函数
+
 def benchmark_implementations():
-    batch_sizes = [1]
-    seq_lens = [128, 256, 512]
-    hidden_sizes = [512]
+    batch_sizes = [1,8]
+    seq_lens = [128,4096]
+    hidden_sizes = [512, 1024]
     results = []
     
     for batch_size, hidden_size, seq_len in itertools.product(batch_sizes, hidden_sizes, seq_lens ):
@@ -176,36 +167,8 @@ def benchmark_implementations():
     print("-" * 80)
     for r in results:
         print(f"{r[0]:5} | {r[1]:6} | {r[2]:6} | {r[3]*1000:.3f}  | {r[4]*1000:.3f}   | {r[5]:.2f}x   | {r[6]:.6f}")
-    
-    # # 绘制性能对比柱状图
-    # fig, axes = plt.subplots(3, 3, figsize=(18, 15))  # 创建3行3列的子图
-    # axes = axes.flatten()  # 将axes展平成一维数组
-    # batch_hidden_combinations = [(b, h) for b in batch_sizes for h in hidden_sizes]
-    
-    # for i, (batch_size, hidden_size) in enumerate(batch_hidden_combinations):  # 9个组合
-    #     ax = axes[i]
-    #     subset = [r for r in results if r[0] == batch_size and r[2] == hidden_size]
-    #     seq_lens = [r[1] for r in subset]
-    #     triton_times = [r[3] * 1000 for r in subset]  # 转换为 ms
-    #     pytorch_times = [r[4] * 1000 for r in subset]
 
-    #     x = np.arange(len(seq_lens))  # X 轴位置
-    #     width = 0.3
-
-    #     ax.bar(x - width/2, triton_times, width, label="Triton", color="blue")
-    #     ax.bar(x + width/2, pytorch_times, width, label="PyTorch", color="orange")
-
-    #     ax.set_xticks(x)
-    #     ax.set_xticklabels(seq_lens)
-    #     ax.set_xlabel("Sequence Length")
-    #     ax.set_ylabel("Execution Time (ms)")
-    #     ax.set_title(f"Batch {batch_size}, Hidden {hidden_size}")
-    #     ax.legend()
-
-    # plt.tight_layout()
-    # plt.savefig("./benchmark_results.png")
     
     return results
 
-# 运行基准测试
 benchmark_implementations()
