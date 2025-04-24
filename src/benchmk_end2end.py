@@ -85,19 +85,7 @@ def bert_fwd_std(mask):
                 h = h.permute(0, 2, 1, 3).contiguous()
                 new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
                 hidden_states = h.view(new_context_layer_shape)
-                
-                
-            elif (attention_type == 'Compile_attention'):
-                scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
-                # scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
-                probs = F.softmax(scores, dim=-1)
-                h = torch.matmul(probs, v)
-                
-                h = h.permute(0, 2, 1, 3).contiguous()
-                new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-                hidden_states = h.view(new_context_layer_shape)
-                
-                
+                                
             elif (attention_type == 'ByteTransformer'):
                 mask=mask.half()
                 if seq_len<=256:
@@ -110,7 +98,6 @@ def bert_fwd_std(mask):
                 new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
                 hidden_states = h.view(new_context_layer_shape)
                 
-            
             elif (attention_type == 'STOF_attention'):
                 if seq_len<=256:
                     hidden_states = rowwise_attn_sliding_op(query, key, value, is_causal, int(sqrt_seq_len/8))
@@ -181,15 +168,6 @@ def gpt_base_fwd_std(mask):
             new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
             hidden_states = h.view(new_context_layer_shape)
         
-        elif (attention_type == 'Compile_attention'):
-            scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
-            scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
-            probs = F.softmax(scores, dim=-1)
-            h = torch.matmul(probs, v)
-            
-            h = h.permute(0, 2, 1, 3).contiguous()
-            new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-            hidden_states = h.view(new_context_layer_shape)
             
         elif (attention_type == 'ByteTransformer'):
             mask=mask.half()
@@ -272,16 +250,6 @@ def T5_base_fwd_std(mask):
         
         # ------------------------------------------------------------- Attention start
         if attention_type=="torch_attention":
-            scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
-            scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
-            probs = F.softmax(scores, dim=-1)
-            h = torch.matmul(probs, v)
-            
-            h = h.permute(0, 2, 1, 3).contiguous()
-            new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-            encoder_hidden_states = h.view(new_context_layer_shape)
-            
-        elif (attention_type == 'Compile_attention'):
             scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
             scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
             probs = F.softmax(scores, dim=-1)
@@ -382,15 +350,6 @@ def T5_base_fwd_std(mask):
             new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
             decoder_hidden_states = h.view(new_context_layer_shape)
             
-        elif (attention_type == 'Compile_attention'):
-            scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
-            scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
-            probs = F.softmax(scores, dim=-1)
-            h = torch.matmul(probs, v)
-            
-            h = h.permute(0, 2, 1, 3).contiguous()
-            new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-            decoder_hidden_states = h.view(new_context_layer_shape)
             
         elif (attention_type == 'ByteTransformer'):
             mask=mask.half()
@@ -568,8 +527,6 @@ if __name__ == "__main__":
     hidden_dim = head_num * head_size 
     
     
-    
-    
     test_Torch           = False
     test_ByteTransformer = False
     test_Torch_Compile   = False
@@ -592,7 +549,6 @@ if __name__ == "__main__":
         test_STOF    = True
         test_STOF_Compile = True
     
-
         
 
     avg_seq_len = seq_len
@@ -683,7 +639,6 @@ if __name__ == "__main__":
     # PyTorch Compile  ---------------------------------------
     if(test_Torch_Compile):
         attention_type="torch_attention"
-        # attention_type="Compile_attention"
         torch_compiled_model_std = torch.compile(inference_model, mode='default', backend='inductor')
         
         for i in range(warmup_iters + running_iters):
@@ -714,7 +669,7 @@ if __name__ == "__main__":
             
         t2_end = time_stamp_cudasync()
         byteattn_time = (t2_end - t2_start) * 1000 / running_iters
-        print("e2e {} | bs:{} | seq:{}  |  ByteTransformer: {:.3f} ms / iter".format(model_selection, batch_size, seq_len, byteattn_time)) 
+        print("e2e {} | bs:{} | seq:{}  |  ByteTransformer : {:.3f} ms / iter".format(model_selection, batch_size, seq_len, byteattn_time)) 
 
 
     #  STOF_attention ------------------------------------

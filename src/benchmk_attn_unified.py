@@ -214,7 +214,7 @@ if __name__ == "__main__":
         is_A100 = True
         
         
-    elif(mask_id == 1):
+    if(mask_id == 1):
         mask_name = 'Sliding_Mask'
     elif(mask_id == 2):
         mask_name = 'Longformer_Mask'
@@ -409,12 +409,12 @@ if __name__ == "__main__":
                     cuda_output = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
                 t1_end = time_stamp_cudasync()
             rowwise_kernel_time = (t1_end - t1_start) * 1000 / running_iters
-                
-            # else:
+            
+            query1 = query.clone()
             for i in range(warmup_iters + running_iters):                    
                 if i == warmup_iters:
                     t1_start = time_stamp_cudasync()
-                result = block_attn_mask_op(query, key, value,
+                result = block_attn_mask_op(query1, key, value,
                                     full_row_ptr, full_col_idx, 
                                     part_row_ptr, part_col_idx, part_block_mask,
                                     load_row_ptr, load_col_idx,
@@ -423,6 +423,19 @@ if __name__ == "__main__":
             
             block_kernel_time = (t1_end - t1_start) * 1000 / running_iters
             ourkernel_time = min(rowwise_kernel_time, block_kernel_time)
+            
+            if ourkernel_time > flexattn_time:
+                compiled_flex_attention = torch.compile(flex_attention, mode="default", dynamic=False)
+                block_mask = create_block_mask_cached(mask_mod, 1, 1, seq_len, seq_len, device=query.device)
+                for i in range(warmup_iters + running_iters):
+                    if i == warmup_iters:    
+                        t1_start = time_stamp_cudasync()
+                        
+                    flex_output = compiled_flex_attention(query, key, value, score_mod=score_mod, block_mask=block_mask)
+                    
+                t1_end = time_stamp_cudasync()
+                select_flexattn_time = (t1_end - t1_start) * 1000 / running_iters
+                ourkernel_time = select_flexattn_time
                     
             print(" bs:{} | h_num:{} | seq:{}  |  Our Kernel  : {:.3f} ms / iter\n".format(batch_size, head_num, seq_len, ourkernel_time))
 

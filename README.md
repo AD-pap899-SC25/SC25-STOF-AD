@@ -49,7 +49,7 @@ bash fig13.sh
 bash fig14.sh
 
 # for Table 4
-bash table4.sh  # TBD
+bash table4.sh
 ```
 
 ### Comparisons that need to be run separately in the Artifact
