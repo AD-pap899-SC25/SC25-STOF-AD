@@ -33,8 +33,6 @@ cd script
 # according to running device input sm_{CUDAARCH}, e.g.,  A100:sm_80 4090:sm_89, 
 # so that for A100: bash env_install.sh 80, and for 4090: bash env_install.sh 89
 bash env_install.sh 80
-# install MCFuser and Bolt
-bash MCFuser_install.sh
 
 # for Figure10-11
 bash fig10-11.sh
@@ -48,11 +46,29 @@ bash fig13.sh
 # for Figure14
 bash fig14.sh
 
-# for Table 4
-bash table4.sh
+# for STOF in Table 4
+bash table4_STOF.sh
 ```
 
 ### Comparisons that need to be run separately in the Artifact
 
-For the comparison of Blselines MCFuser and Bolt, a lot of compilation and installation processes related to tvm and CUTLASS are involved. To ensure smooth reproduction, we provide an additional conda environment in the provided image to execute.
+For the comparison of Blselines MCFuser and Bolt, a lot of compilation and installation processes related to tvm and CUTLASS are involved. In order to reproduce this part of the experiment smoothly, we have uploaded the relevant necessary configuration files to [Google Drive](https://drive.google.com/file/d/17N-PfI0klMa1jHE-1YcpV5oNzjfcFxE4/view?usp=sharing). After downloading them, you need to execute the relevant installation script `script/MCFuser_install.sh`. The exact steps are as follows:
 
+```shell
+cd SC25-STOF-AD/src
+
+# download ae-mcfuser-test.tar.gz from Google Drive
+# compressed package this file 
+tar -xzvf ae-mcfuser-test.tar.gz
+
+# rename this directory
+mv ae-mcfuser-test3 ./MCFuser/mcfuser
+
+cd ../script
+
+# install MCFuser and Bolt
+bash MCFuser_install.sh
+
+# for MCFuser and Bolt in Table 4
+bash table4.sh
+```
