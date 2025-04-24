@@ -16,7 +16,7 @@ The repository is organized as below:
 
 ## Getting Started
 
-We provide the container . . . , or we recommend using the image `nvcr.io/nvidia/pytorch:24.09-py3` to directly obtain the container containing the basic environment such as PyTorch Compile.
+We recommend using the image `nvcr.io/nvidia/pytorch:24.09-py3` to directly obtain the container containing the basic environment such as PyTorch Compile.
 
 ```shell
 # pull docker images and enter conatiner
@@ -27,12 +27,14 @@ docker run --gpus all --name AD-pap899-SC25 -itd nvcr.io/nvidia/pytorch:24.09-py
 git clone https://github.com/AD-pap899-SC25/SC25-STOF-AD.git
 cd SC25-STOF-AD
 
-# encter script directory 
+# enter script directory 
 cd script
 # install operators and check the environment
 # according to running device input sm_{CUDAARCH}, e.g.,  A100:sm_80 4090:sm_89, 
 # so that for A100: bash env_install.sh 80, and for 4090: bash env_install.sh 89
 bash env_install.sh 80
+# install MCFuser and Bolt
+bash MCFuser_install.sh
 
 # for Figure10-11
 bash fig10-11.sh

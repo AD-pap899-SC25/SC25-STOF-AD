@@ -25,3 +25,5 @@ for model in "${models[@]}"; do
         --model="$model"
 done
 
+cd ../plot/fig14
+python fig14.py

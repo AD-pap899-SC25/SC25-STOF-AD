@@ -314,7 +314,7 @@ if __name__ == "__main__":
         is_A100 = True
     
     parser = argparse.ArgumentParser(description="Give the parameters for the attention test (with Mask)")
-    parser.add_argument('--mask_id', type=int, default=3, help='Mask type: 0-Casual | 1-Sliding | 2-Longformer | 3-BigBird (default: 0)')
+    parser.add_argument('--mask_id', type=int, default=3, help='Mask type: 1-Sliding | 2-Longformer | 3-BigBird (default: 0)')
     parser.add_argument('--block_m', type=int, default=16, help='Block Size of M (default:32)')
     parser.add_argument('--block_n', type=int, default=16, help='Block Size of N (default:32)')
     parser.add_argument('--num_warps', type=int, default=1, help='Warp Num to launch (default:4)')
@@ -355,7 +355,7 @@ if __name__ == "__main__":
     fill_rate    = 0.1
     
     warmup_iters = 10
-    running_iters = 10      
+    running_iters = 100
 
     if model_selection == "bert_small":
         inference_model=bert_fwd_std

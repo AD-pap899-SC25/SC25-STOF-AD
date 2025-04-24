@@ -1,5 +1,10 @@
 #!/bin/bash
 cd ../src
 
-script -c "python benchmk_attn_unified.py \
-    --mask_id=1 --head_num=12 --head_size=64 --print_flag=True" MHA_result.txt
+mask_ids=(1 2 3 4)
+for mask_id in "${mask_ids[@]}"; do
+    python benchmk_attn_unified.py --mask_id="$mask_id"
+done
+
+cd ../plot/fig10-11
+python fig10-11.py

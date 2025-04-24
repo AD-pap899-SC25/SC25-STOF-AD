@@ -23,3 +23,6 @@ for bs in "${batch_sizes[@]}"; do
         done
     done
 done
+
+cd ../plot/fig12
+python fig12.py

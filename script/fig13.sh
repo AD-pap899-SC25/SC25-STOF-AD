@@ -50,4 +50,5 @@ for model in "${models[@]}"; do
         --method="STOF-Compiled"
 done
 
-
+cd ../plot/fig13
+python fig13.py
