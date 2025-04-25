@@ -2,10 +2,8 @@
 cd ../src
 
 
-batch_sizes=(1)
-seq_lens=(256)
-# batch_sizes=(1 8 16)
-# seq_lens=(128 256 512 1024 2048 4096)
+batch_sizes=(1 8 16)
+seq_lens=(128 256 512 1024 2048 4096)
 models=("bert_small" "bert_base" "bert_large" "gpt" "t5")
 methods=("TorchNative" "TorchCompile" "ByteTrans" "STOF")
 
@@ -24,5 +22,5 @@ for bs in "${batch_sizes[@]}"; do
     done
 done
 
-# cd ../plot/fig12
-# python fig12.py
+cd ../plot/fig12
+python fig12.py

@@ -4,31 +4,98 @@ import torch
 import time
 import torch.nn.functional as F
 import os
-
 os.environ["TRITON_PRINT_AUTOTUNING"] = "1"
-
+from triton.runtime import driver
 
 @triton.jit
 def tanh(x):
-    # Tanh is just a scaled sigmoid
     return 2 * tl.sigmoid(2 * x) - 1
 
+def early_config_prune(configs, named_args, **kwargs):
+    device = torch.cuda.current_device()
+    capability = torch.cuda.get_device_capability()
+    A = named_args['a'] 
+    
+    pruned = []
+    for cfg in configs:
+        BLOCK_M = cfg.kwargs['BLOCK_SIZE_M']
+        BLOCK_H = cfg.kwargs['BLOCK_SIZE_H']
+        BLOCK_K = cfg.kwargs['BLOCK_SIZE_K']
+        BLOCK_N = cfg.kwargs['BLOCK_SIZE_N']
+        num_warps = cfg.num_warps
+        
+
+        if (BLOCK_M * BLOCK_K) > 1024 or (BLOCK_N * BLOCK_H) > 1024:
+            continue
+            
+        max_shared = driver.active.utils.get_device_properties(device)["max_shared_mem"]
+
+        gemm1_shared = (BLOCK_M * BLOCK_K + BLOCK_K * BLOCK_N) * A.element_size() * 2  
+        gemm2_shared = (BLOCK_M * BLOCK_N + BLOCK_N * BLOCK_H) * A.element_size() * 2  
+        if (gemm1_shared + gemm2_shared) > max_shared * 0.8: 
+            continue
+            
+        if A.dtype == torch.float16:
+            if BLOCK_K % 16 != 0 or BLOCK_N % 16 != 0:
+                continue
+            if capability[0] >= 8 and (BLOCK_M % 8 != 0 or BLOCK_H % 8 != 0):
+                continue 
+                
+        pruned.append(cfg)
+        
+    if capability[0] >= 8:
+        # Ampere+
+        config_groups = {}
+        for cfg in pruned:
+            key = (cfg.kwargs['BLOCK_SIZE_M'], cfg.kwargs['BLOCK_SIZE_N'], num_warps)
+            config_groups.setdefault(key, []).append(cfg)
+        
+        final_configs = []
+        for group in config_groups.values():
+
+            comp_intensity = []
+            for cfg in group:
+                m, n, k, h = [cfg.kwargs[f'BLOCK_SIZE_{d}'] for d in ['M','N','K','H']]
+                ops = 2 * m * n * k + 2 * m * h * n
+                mem_access = (m*k + k*n + m*n) + (m*n + n*h + m*h)
+                comp_intensity.append(ops / mem_access)
+            
+            best_indices = sorted(range(len(comp_intensity)), key=lambda i: -comp_intensity[i])[:3]
+            final_configs.extend([group[i] for i in best_indices])
+            
+        return final_configs
+    else:
+        return [cfg for cfg in pruned if cfg.num_stages <= 2 and cfg.num_warps >= 4]
+
+
+configs = [
+    triton.Config(
+        {"BLOCK_SIZE_M": block_m, "BLOCK_SIZE_H": block_h, 'BLOCK_SIZE_K': block_k, 'BLOCK_SIZE_N': block_n},
+        num_warps = num_warps
+    )
+    for block_m in [16, 32, 64, 128]
+    for block_h in [32, 64, 128]
+    for block_k in [32, 64, 128]
+    for block_n in [16, 32, 64, 128]
+    for num_warps in [1, 2, 4]   
+]
+
+
 @triton.autotune(
-    configs=[
-        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 64, 'BLOCK_SIZE_N': 32}),
-        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_N': 128}),
-        triton.Config({'BLOCK_SIZE_M': 16, 'BLOCK_SIZE_H': 128, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_N': 256}),
-        triton.Config({'BLOCK_SIZE_M': 32, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_N': 128}),
-        triton.Config({'BLOCK_SIZE_M': 16, 'BLOCK_SIZE_H': 64, 'BLOCK_SIZE_K': 16, 'BLOCK_SIZE_N': 128}),
-        triton.Config({'BLOCK_SIZE_M': 16, 'BLOCK_SIZE_N': 16, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_H': 16}),
-        triton.Config({'BLOCK_SIZE_M': 32, 'BLOCK_SIZE_N': 32, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_H': 32}),
-        triton.Config({'BLOCK_SIZE_M': 64, 'BLOCK_SIZE_N': 64, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_H': 64}),
-        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_N': 64, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_H': 64}),
-        triton.Config({'BLOCK_SIZE_M': 64, 'BLOCK_SIZE_N': 128, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_H': 64}),
-        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_N': 128, 'BLOCK_SIZE_K': 32, 'BLOCK_SIZE_H': 64}),
-    ],
+    configs=configs,
+    
     key=['M', 'K', 'N', 'H'],
+    
+    prune_configs_by={
+        'early_config_prune': early_config_prune,
+        'perf_model': None,
+        'top_k': 5
+    },
+    warmup=10,
+    rep=20
 )
+
+
 @triton.jit
 def triton_matmul_batch_kernel(
     T_einsum_1, b, a, d, bias,
@@ -49,6 +116,7 @@ def triton_matmul_batch_kernel(
     T_einsum_1_data = tl.zeros([BLOCK_SIZE_M, BLOCK_SIZE_H], dtype=tl.float32)
     
     n_blocks = (N + BLOCK_SIZE_N - 1) // BLOCK_SIZE_N
+    
     for n_idx in range(n_blocks):
         n_offset = n_idx * BLOCK_SIZE_N
         n_offsets = n_offset + tl.arange(0, BLOCK_SIZE_N)
@@ -89,8 +157,8 @@ def triton_matmul_batch_kernel(
 
 def triton_matmul_batch(a, b, d, bias):
     B, M, K = a.shape
-    _, K_, N = b.shape
-    _, N_, H = d.shape
+    _, N = b.shape
+    _, H = d.shape
     
     grid = lambda META: (
         B,
@@ -144,7 +212,6 @@ def benchmark_implementations():
         y_pytorch = pytorch_matmul_batch(A, B, D, bias)
         max_error = torch.max(torch.abs(y_triton - y_pytorch)).item()
         
-        # Benchmark Triton implementation
         torch.cuda.synchronize()
         start = time.time()
         for _ in range(100):
@@ -152,7 +219,6 @@ def benchmark_implementations():
         torch.cuda.synchronize()
         triton_time = (time.time() - start) / 100
         
-        # Benchmark PyTorch implementation
         torch.cuda.synchronize()
         start = time.time()
         for _ in range(100):
@@ -167,7 +233,6 @@ def benchmark_implementations():
         print(f"Speedup: {speedup:.2f}x")
         print(f"Max absolute error: {max_error}\n")
     
-    # Print summary table
     print("\nPerformance Summary:")
     print("Batch | SeqLen | Hidden | Triton (ms) | PyTorch (ms) | Speedup | Max Error")
     print("-" * 80)

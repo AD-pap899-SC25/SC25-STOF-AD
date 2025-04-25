@@ -1,18 +1,15 @@
-import sys
-import os
-
 import argparse
 import torch
 import torch._dynamo
 import math
 import torch.nn.functional as F
 
-from torch.nn.attention import SDPBackend, sdpa_kernel
+from torch.nn.attention.flex_attention import flex_attention  
 from ops.package_op import block_attn_mask_op
 from ops.package_op import rowwise_attn_sliding_op
-from util.utils import set_dtype, seqlen_to_mask, torch_cuda_identify, time_stamp_cudasync, transpose_for_scores, read_config_file
+from util.utils import set_dtype, seqlen_to_mask, torch_cuda_identify, time_stamp_cudasync, transpose_for_scores
 from util.masks import generate_bigbird_mask, get_sparse_storage
-from util.masks import flex_bigbird_mask
+from util.masks import flex_bigbird_mask, create_block_mask_cached
 
 import warnings
 from torch.jit import TracerWarning
@@ -50,8 +47,12 @@ def bert_fwd_std(mask):
             elif (attention_type == 'STOF_attention'):
                 if seq_len<=256:
                     hidden_states = rowwise_attn_sliding_op(query, key, value, is_causal, int(sqrt_seq_len/8))
+                elif(seq_len>256 and seq_len <= 1024):
+                    h = compiled_flex_attention(q, k, v, score_mod=score_mod, block_mask=block_mask)
+                    h = h.permute(0, 2, 1, 3).contiguous()
+                    new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
+                    hidden_states = h.view(new_context_layer_shape)
                 else:
-                    query1 = query.clone()
                     h = block_attn_mask_op(query1, key, value,
                                     full_row_ptr, full_col_idx, 
                                     part_row_ptr, part_col_idx, part_block_mask,
@@ -60,7 +61,6 @@ def bert_fwd_std(mask):
                     h = h.permute(0, 2, 1, 3).contiguous()
                     new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
                     hidden_states = h.view(new_context_layer_shape)
-                    
                     
             # ------------------------------------------------------------ Attention End
             hidden_states = torch.matmul(hidden_states, attr_output_kernel[layer]) + attr_output_bias[layer]
@@ -110,8 +110,12 @@ def gpt_base_fwd_std(mask):
         elif (attention_type == 'STOF_attention'):
             if seq_len<=256:
                 hidden_states = rowwise_attn_sliding_op(query, key, value, is_causal, int(sqrt_seq_len/8))
+            elif(seq_len>256 and seq_len <= 1024):
+                h = compiled_flex_attention(q, k, v, score_mod=score_mod, block_mask=block_mask)
+                h = h.permute(0, 2, 1, 3).contiguous()
+                new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
+                hidden_states = h.view(new_context_layer_shape)
             else:
-                query1 = query.clone()
                 h = block_attn_mask_op(query1, key, value,
                                 full_row_ptr, full_col_idx, 
                                 part_row_ptr, part_col_idx, part_block_mask,
@@ -124,27 +128,17 @@ def gpt_base_fwd_std(mask):
                 
         # ------------------------------------------------------------ Attention End
                 
-        #GEMM + bias + residual
         hidden_states = torch.matmul(hidden_states, attr_output_kernel[layer])
         hidden_states = hidden_states + attr_output_bias[layer]
         hidden_states = hidden_states + input_tensor
-        
-        # layer_Norm
         hidden_states = F.layer_norm(hidden_states, (hidden_dim, ), weight=attr_output_layernorm_gamma[layer], bias=attr_output_layernorm_beta[layer])
         residual = hidden_states 
-        
-        #FFN GEMM 1 + add bias 
         hidden_states = torch.matmul(hidden_states, inter_kernel[layer])
         hidden_states = hidden_states + inter_bias[layer] 
-        
         hidden_states = new_gelu(hidden_states)  
-        
-        #FFN GEMM 2 + add bias + residual
         hidden_states = torch.matmul(hidden_states, output_kernel[layer]) 
         hidden_states = hidden_states + output_bias[layer]  
         hidden_states = hidden_states + residual
-
-        # layer_Norm
         hidden_states = F.layer_norm(hidden_states, (hidden_dim, ),  weight=output_layernorm_gamma[layer], bias=output_layernorm_beta[layer])  
         transformer_output[layer] = hidden_states
 
@@ -175,12 +169,15 @@ def T5_base_fwd_std(mask):
             new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
             encoder_hidden_states = h.view(new_context_layer_shape)
 
-
         elif (attention_type == 'STOF_attention'):
             if seq_len<=256:
                 encoder_hidden_states = rowwise_attn_sliding_op(query, key, value, is_causal, int(sqrt_seq_len/8))
+            elif(seq_len>256 and seq_len <= 1024):
+                h = compiled_flex_attention(q, k, v, score_mod=score_mod, block_mask=block_mask)
+                h = h.permute(0, 2, 1, 3).contiguous()
+                new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
+                encoder_hidden_states = h.view(new_context_layer_shape)
             else:
-                query1 = query.clone()
                 h = block_attn_mask_op(query1, key, value,
                                 full_row_ptr, full_col_idx, 
                                 part_row_ptr, part_col_idx, part_block_mask,
@@ -212,7 +209,6 @@ def T5_base_fwd_std(mask):
         encoder_hidden_states = F.layer_norm(encoder_hidden_states, (hidden_dim, ), weight=output_layernorm_gamma[layer], bias=output_layernorm_beta[layer])  
         
         
-    # Ready QK for Decoder
     Encoder_qkv = torch.matmul(encoder_hidden_states, qkv_kernel_raw[layer])
     Encoder_qkv = Encoder_qkv + qkv_bias[layer]
     encoder_q, encoder_k, encoder_v = Encoder_qkv.chunk(3, dim=-1)
@@ -243,8 +239,12 @@ def T5_base_fwd_std(mask):
         elif (attention_type == 'STOF_attention'):
             if seq_len<=256:
                 decoder_hidden_states = rowwise_attn_sliding_op(query, key, value, is_causal, int(sqrt_seq_len/8))
+            elif(seq_len>256 and seq_len <= 1024):
+                h = compiled_flex_attention(q, k, v, score_mod=score_mod, block_mask=block_mask)
+                h = h.permute(0, 2, 1, 3).contiguous()
+                new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
+                decoder_hidden_states = h.view(new_context_layer_shape)
             else:
-                query1 = query.clone()
                 h = block_attn_mask_op(query1, key, value,
                                 full_row_ptr, full_col_idx, 
                                 part_row_ptr, part_col_idx, part_block_mask,
@@ -472,7 +472,9 @@ if __name__ == "__main__":
     query = torch.randn(batch_size, head_num, seq_len, head_size, device=running_device, dtype=data_type)
     key = torch.randn(batch_size, head_num, seq_len, head_size, device=running_device, dtype=data_type)
     value = torch.randn(batch_size, head_num, seq_len, head_size, device=running_device, dtype=data_type)
-    
+    query1 = query.clone()
+    compiled_flex_attention = torch.compile(flex_attention, mode="default", dynamic=False)
+    block_mask = create_block_mask_cached(mask_mod, 1, 1, seq_len, seq_len, device=query.device)
 
     nnz, full_row_ptr, full_col_idx, part_row_ptr, part_col_idx, part_block_mask, load_row_ptr, load_col_idx, = get_sparse_storage(mask, BLOCK_M, BLOCK_N)
     

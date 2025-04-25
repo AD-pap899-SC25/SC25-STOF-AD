@@ -1,3 +1,4 @@
+
 export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-12/lib64:$LD_LIBRARY_PATH
 export PYTHONPATH="/usr/local/lib/python3.10/dist-packages/triton-2.1.0-py3.10-linux-x86_64.egg:$PYTHONPATH"

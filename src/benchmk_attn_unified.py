@@ -1,7 +1,6 @@
 # python benchmk_attn_unified.py --mask_id 1 --batch_size=8 --seq_len=256
 #  // --block_m 32 --block_n 32 --num_warps 4
 # 
-
 import sys
 import os
 import argparse
@@ -19,7 +18,6 @@ import random
 
 
 def torch_attn_std(q, k, v, mask=None):
-    # Q(B, H, S, W) @ K^T(B, H, W, S) = (B, H, S, S)
     kt = k.transpose(-2, -1)
     scores = torch.matmul(q, kt)
     scores /= (q.shape[-1] ** .5)
