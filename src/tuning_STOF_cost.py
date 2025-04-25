@@ -173,7 +173,7 @@ def T5_base_fwd_std(mask):
         
          # ------------------------------------------------------------- Attention start
         if seq_len<=256:
-            hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
+            encoder_hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
         elif (seq_len == 2048):
             h = block_attn_mask_op(query, key, value,
                             full_row_ptr, full_col_idx, 
@@ -182,14 +182,13 @@ def T5_base_fwd_std(mask):
                             BLOCK_M, BLOCK_N, num_warps)
             h = h.permute(0, 2, 1, 3).contiguous()
             new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-            hidden_states = h.view(new_context_layer_shape)
+            encoder_hidden_states = h.view(new_context_layer_shape)
         # ------------------------------------------------------------ Attention End
-        
         
         if(replace_gemm_layernorm_small == True and head_num != 12):
             attr_output_kernel_temp = attr_output_kernel[layer].unsqueeze(0).expand(batch_size, -1, -1)
-            hidden_states = triton_matmul_bias_layernorm(encoder_hidden_states, attr_output_kernel_temp, attr_output_bias[layer] + input_tensor)
-            hidden_states += attr_output_layernorm_beta[layer]
+            encoder_hidden_states = triton_matmul_bias_layernorm(encoder_hidden_states, attr_output_kernel_temp, attr_output_bias[layer] + input_tensor)
+            encoder_hidden_states += attr_output_layernorm_beta[layer]
         else:
             encoder_hidden_states = torch.matmul(encoder_hidden_states, attr_output_kernel[layer])
             encoder_hidden_states = encoder_hidden_states + attr_output_bias[layer]
@@ -205,8 +204,8 @@ def T5_base_fwd_std(mask):
         
         if(replace_gemm_layernorm_large == True and head_num != 12):
             output_kernel_temp = output_kernel[layer].unsqueeze(0).expand(batch_size, -1, -1)
-            hidden_states = triton_matmul_bias_layernorm(encoder_hidden_states, output_kernel_temp, output_bias[layer] + encoder_residual)
-            hidden_states += output_layernorm_beta[layer]
+            encoder_hidden_states = triton_matmul_bias_layernorm(encoder_hidden_states, output_kernel_temp, output_bias[layer] + encoder_residual)
+            encoder_hidden_states += output_layernorm_beta[layer]
         else:
             encoder_hidden_states = torch.matmul(encoder_hidden_states, output_kernel[layer]) 
             encoder_hidden_states = encoder_hidden_states + output_bias[layer]  
@@ -231,7 +230,7 @@ def T5_base_fwd_std(mask):
 
         # ------------------------------------------------------------- Attention start
         if seq_len<=256:
-            hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
+            decoder_hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
         elif (seq_len == 2048):
             h = block_attn_mask_op(query, key, value,
                             full_row_ptr, full_col_idx, 
@@ -240,7 +239,7 @@ def T5_base_fwd_std(mask):
                             BLOCK_M, BLOCK_N, num_warps)
             h = h.permute(0, 2, 1, 3).contiguous()
             new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-            hidden_states = h.view(new_context_layer_shape)
+            decoder_hidden_states = h.view(new_context_layer_shape)
         # ------------------------------------------------------------ Attention End
 
         decoder_hidden_states = torch.matmul(decoder_hidden_states, attr_output_kernel_2[layer])
@@ -266,8 +265,8 @@ def T5_base_fwd_std(mask):
         
         if(replace_gemm_layernorm_small == True and head_num != 12):
             attr_output_kernel_temp = crattr_output_kernel_2[layer].unsqueeze(0).expand(batch_size, -1, -1)
-            hidden_states = triton_matmul_bias_layernorm(decoder_hidden_states, attr_output_kernel_temp, decoder_hidden_states + crattr_output_bias_2[layer])
-            hidden_states += crattn_lynorm_beta_2[layer]
+            decoder_hidden_states = triton_matmul_bias_layernorm(decoder_hidden_states, attr_output_kernel_temp, decoder_hidden_states + crattr_output_bias_2[layer])
+            decoder_hidden_states += crattn_lynorm_beta_2[layer]
         else:
             decoder_hidden_states = torch.matmul(decoder_hidden_states, crattr_output_kernel_2[layer])
             decoder_hidden_states = decoder_hidden_states + crattr_output_bias_2[layer]
@@ -283,8 +282,8 @@ def T5_base_fwd_std(mask):
         
         if(replace_gemm_layernorm_large == True and head_num != 12):
             output_kernel_temp = output_kernel_2[layer].unsqueeze(0).expand(batch_size, -1, -1)
-            hidden_states = triton_matmul_bias_layernorm(hidden_states, output_kernel_temp, output_bias_2[layer] + decoder_residual)
-            hidden_states += lynorm_beta_2[layer]
+            decoder_hidden_states = triton_matmul_bias_layernorm(decoder_hidden_states, output_kernel_temp, output_bias_2[layer] + decoder_residual)
+            decoder_hidden_states += lynorm_beta_2[layer]
         else:
             decoder_hidden_states = torch.matmul(decoder_hidden_states, output_kernel_2[layer]) 
             decoder_hidden_states = decoder_hidden_states + output_bias_2[layer]  

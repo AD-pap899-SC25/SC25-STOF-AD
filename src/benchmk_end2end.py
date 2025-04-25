@@ -225,7 +225,6 @@ def T5_base_fwd_std(mask):
         k = transpose_for_scores(k, head_num, head_size)
         v = transpose_for_scores(v, head_num, head_size)
 
-        # ------------------------------------------------------------- Attention start
         if attention_type=="torch_attention":
             scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
             scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
@@ -254,8 +253,7 @@ def T5_base_fwd_std(mask):
             h = compiled_flex_attention(query, key, value, score_mod=score_mod, block_mask=block_mask)
             h = h.permute(0, 2, 1, 3).contiguous()
             new_context_layer_shape = h.size()[:-2] + (hidden_dim, )
-            hidden_states = h.view(new_context_layer_shape)
-        # ------------------------------------------------------------ Attention End
+            decoder_hidden_states = h.view(new_context_layer_shape)
 
         
         decoder_hidden_states = torch.matmul(decoder_hidden_states, attr_output_kernel_2[layer])
@@ -269,12 +267,14 @@ def T5_base_fwd_std(mask):
         qkv = torch.matmul(decoder_hidden_states, qkv_kernel_3[layer])
         qkv = qkv + qkv_bias_3[layer]
         q, k, v = qkv.chunk(3, dim=-1)
+        q = transpose_for_scores(q, head_num, head_size)  
+        k = transpose_for_scores(k, head_num, head_size)  
         v = transpose_for_scores(v, head_num, head_size)
         
          # ------------------------------------------------------------- Attention start
         if attention_type=="torch_attention":
             scores = torch.matmul(q, k.transpose(-2, -1)) / (head_size ** .5)
-            scores -= 10000.0 * (1.0 - mask.unsqueeze(1))
+            scores = scores - 10000.0 * (1.0 - mask.unsqueeze(1))
             probs = F.softmax(scores, dim=-1)
             h = torch.matmul(probs, v)
             
