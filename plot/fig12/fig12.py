@@ -44,13 +44,13 @@ def parse_file(file_path, is_mcfuser=False):
 
                 data[bs][seq][current_model][method] = time
     return data
+
 def parse_file2(file_path, is_mcfuser=False):
     data = {}
     current_model = None
 
     with open(file_path, 'r') as f:
         for line in f:
-           
             model_match = re.search(r'e2e (\w+)', line)
             if model_match:
                 current_model = model_match.group(1)
@@ -90,6 +90,7 @@ data1 = parse_file(args.mcfuser_4090,is_mcfuser=True)
 data2 = parse_file2(args.stof_other_4090)
 data3 = parse_file2(args.stof_4090)
 data4 = parse_file(args.bolt_4090)
+
 data5 = parse_file(args.mcfuser_a100,is_mcfuser=True)
 data6 = parse_file2(args.stof_other_a100)
 data7 = parse_file2(args.stof_a100)
@@ -117,7 +118,6 @@ def combinedData(data1,data2,data3,data4):
     for bs in [1, 8, 16]:
         combined_data[bs] = {}
 
-        # 只处理目标seq长度
         target_seqs = [seq for b, seq in target_pairs if b == bs]
 
         for seq in target_seqs:
@@ -176,7 +176,7 @@ normalized_data2=normalizedData(combined_data2)
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import rcParams
-rcParams['font.family'] = 'Times New Roman'
+# rcParams['font.family'] = 'Times New Roman'
 rcParams['font.size'] = 25
 
 MODELS = ['bert_small', 'bert_base', 'bert_large', 'gpt', 't5']
@@ -232,7 +232,7 @@ def plot_subplot(ax, data, panel_label):
                             ha='right', va='top',
                             
                             fontsize=20.57,
-                            fontname='Times New Roman',
+                            # fontname='Times New Roman',
                             color='black')
 
    

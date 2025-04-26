@@ -6,7 +6,7 @@ import argparse
 import os
 
 
-plt.rcParams['font.family'] = 'Times New Roman'
+# plt.rcParams['font.family'] = 'Times New Roman'
 plt.rcParams['font.size'] = 30
 
 def parse_file(file_path, onlymc_file_path):
@@ -99,7 +99,7 @@ def plot_performance(data_list, subtitles, gpu_info):
                         ha='right',
                         va='top',
                         fontsize=24,
-                        fontname='Times New Roman',
+                        # fontname='Times New Roman',
                         color='black')
     
     for plot_idx, (data, title) in enumerate(zip(data_list, subtitles)):

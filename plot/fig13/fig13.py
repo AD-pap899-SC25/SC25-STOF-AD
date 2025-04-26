@@ -150,7 +150,7 @@ normalized_data1=normalizedData(combined_data1)
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import rcParams
-rcParams['font.family'] = 'Times New Roman'
+# rcParams['font.family'] = 'Times New Roman'
 rcParams['font.size'] = 25
 
 MODELS = ['bert_small', 'bert_base', 'bert_large', 'gpt', 't5']
@@ -207,7 +207,7 @@ def plot_subplot(ax, data):
                             f"{value:.1f}",
                             ha='right', va='top',
                             fontsize=25,
-                            fontname='Times New Roman',
+                            # fontname='Times New Roman',
                             color='black')
 
 

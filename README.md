@@ -34,16 +34,16 @@ cd script
 # so that for A100: bash env_install.sh 80, and for 4090: bash env_install.sh 89
 bash env_install.sh 80
 
-# for Figure10-11
+# for Figure 10-11
 bash fig10-11.sh
 
-# for Figure12
+# for Figure 12
 bash fig12.sh
 
-# for Figure13
+# for Figure 13
 bash fig13.sh
 
-# for Figure14
+# for Figure 14
 bash fig14.sh
 
 # for STOF in Table 4

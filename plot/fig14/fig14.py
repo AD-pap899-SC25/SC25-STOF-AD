@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import rcParams
 from matplotlib import transforms
 
-rcParams['font.family'] = 'Times New Roman'
+# rcParams['font.family'] = 'Times New Roman'
 
 
 import csv
