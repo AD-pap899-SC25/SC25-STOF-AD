@@ -1,6 +1,6 @@
+#!/bin/bash
 
-
-cd ../src/MCFuser
+cd ../src/MCFuser/mcfuser/src
 
 cp -r .triton ~/
 tar -xvf triton.tar.gz
