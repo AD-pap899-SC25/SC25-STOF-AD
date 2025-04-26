@@ -20,11 +20,11 @@ for bs_seq in "${batch_seq_pairs[@]}"; do
                 "../data/End2End_Performance/fig12_stof_other.txt"
         done
 
-        script -a -c "python benchmk_end2end.py" \
+        script -a -c "python benchmk_end2end.py \
             --batch_size=$bs \
             --seq_len=$seq \
             --model=$model \
-            --method="STOF" \
+            --method=STOF" \
             "../data/End2End_Performance/fig12_stof.txt"
 
     done
