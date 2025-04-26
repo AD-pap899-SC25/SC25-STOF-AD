@@ -17,13 +17,12 @@ The repository is organized as below:
 ## Getting Started
 
 We recommend using the image `nvcr.io/nvidia/pytorch:24.09-py3` to directly obtain the container with the basic environment.
-
 ```shell
-# pull docker images and enter container
+# pull docker images and enter conatiner
 docker pull nvcr.io/nvidia/pytorch:24.09-py3
-docker run --gpus all --name AD-pap899-SC25 -itd nvcr.io/nvidia/pytorch:24.09-py3 /bin/bash
+docker run --gpus all --name AD-pap899-SC25 --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -it nvcr.io/nvidia/pytorch:24.09-py3 /bin/bash
 
-# update PyTorch version 
+# update PyTorch version
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 
 # clone the repository and encter the directory
@@ -37,16 +36,16 @@ cd script
 # so that for A100: bash env_install.sh 80, and for 4090: bash env_install.sh 89
 bash env_install.sh 80
 
-# for Figure10-11
+# for Figure 10-11
 bash fig10-11.sh
 
-# for Figure12
+# for Figure 12
 bash fig12.sh
 
-# for Figure13
+# for Figure 13
 bash fig13.sh
 
-# for Figure14
+# for Figure 14
 bash fig14.sh
 
 # for STOF in Table 4
@@ -56,7 +55,6 @@ bash table4_STOF.sh
 ## Comparisons that need to be run separately in the Artifact
 
 For the comparison of Blselines MCFuser and Bolt, a lot of compilation and installation processes related to tvm and CUTLASS are involved. In order to reproduce this part of the experiment smoothly, we have uploaded the relevant necessary configuration files to [Google Drive](https://drive.google.com/file/d/17N-PfI0klMa1jHE-1YcpV5oNzjfcFxE4/view?usp=sharing). After downloading them and place the compressed package `ae-mcfuser-test.tar.gz` in `/src`, you need to execute the relevant installation script `script/MCFuser_install.sh`. The exact steps are as follows:
-
 ```shell
 cd SC25-STOF-AD/src
 
