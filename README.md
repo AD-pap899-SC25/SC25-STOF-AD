@@ -22,7 +22,6 @@ We recommend using the image `nvcr.io/nvidia/pytorch:24.09-py3` to directly obta
 # pull docker images and enter conatiner
 docker pull nvcr.io/nvidia/pytorch:24.09-py3
 docker run --gpus all --name AD-pap899-SC25 --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -it nvcr.io/nvidia/pytorch:24.09-py3 /bin/bash
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 
 # clone the repository and encter the directory
 git clone https://github.com/AD-pap899-SC25/SC25-STOF-AD.git

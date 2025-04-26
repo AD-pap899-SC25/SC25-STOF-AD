@@ -24,7 +24,6 @@ def clean_triton_cache():
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)
         
-
 def new_gelu(input):
     return 0.5 * input * (1.0 + torch.tanh(math.sqrt(2.0 / math.pi) * (input + 0.044715 * torch.pow(input, 3.0))))
 
@@ -46,7 +45,7 @@ def bert_fwd_std(mask):
             # ------------------------------------------------------------- Attention start
             if seq_len<=256:
                 hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
-            elif (seq_len == 2048):
+            else:
                 h = block_attn_mask_op(query, key, value,
                                 full_row_ptr, full_col_idx, 
                                 part_row_ptr, part_col_idx, part_block_mask,
@@ -109,7 +108,7 @@ def gpt_base_fwd_std(mask):
         # ------------------------------------------------------------- Attention start
         if seq_len<=256:
             hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
-        elif (seq_len == 2048):
+        else:
             h = block_attn_mask_op(query, key, value,
                             full_row_ptr, full_col_idx, 
                             part_row_ptr, part_col_idx, part_block_mask,
@@ -173,7 +172,7 @@ def T5_base_fwd_std(mask):
         
         if seq_len<=256:
             encoder_hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask)
-        elif (seq_len == 2048):
+        else:
             h = block_attn_mask_op(query, key, value,
                             full_row_ptr, full_col_idx, 
                             part_row_ptr, part_col_idx, part_block_mask,
@@ -230,9 +229,9 @@ def T5_base_fwd_std(mask):
         v = transpose_for_scores(v, head_num, head_size)
 
         # ------------------------------------------------------------- Attention start
-        if seq_len<=512:
+        if seq_len<=256:
             decoder_hidden_states = rowwise_attn_mask_op(query, key, value, is_causal, row_mask) 
-        elif (seq_len == 2048):
+        else:
             h = block_attn_mask_op(query, key, value,
                             full_row_ptr, full_col_idx, 
                             part_row_ptr, part_col_idx, part_block_mask,
