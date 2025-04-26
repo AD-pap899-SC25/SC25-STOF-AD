@@ -1,44 +1,77 @@
-# fusion-SC25
+# STOF
 
-## 对比对象
-+ 可立即部署 PyTorch Naive、Torch.compile、TVM
-+ 待部署 FasterTransformer、TVM、MCFuser、Ansor、Welder
+This folder contains the system prototype of STOF (pap899) at SC '25, titled "STOF: Optimizing Sparse Transformer via Flexible Masking and Operator Fusion on GPU", including Figure 10-11, Figure 12, Figure 13, Figure 14 and Table 4.
 
-## 端到端测试模型
-|        Model             |  L   |  H   |  A   | W |
-| :-------------------------: | :--: | :--: | :--: | :-------: |
-| BERT-small  35M 【Encoder】 |  6   | 512  |  8   |    64     |
-| BERT-base 110M 【Encoder】  |  12  | 768  |  12  |    64     |
-| BERT-large 340M【Encoder】  |  24  | 1024 |  16  |    64     |
-|    GPT（2/3）【Decoder】    |  12  | 768  |  12  |    64     |
-|    T5【encoder+decoder】    |  12  | 768  |  12  |    64     |
+## Abstract
 
+The repository is organized as below:
 
-## 算子批量测试尺寸
-> 所有测试，在横轴上尽量保持为6个比较好 (6个seqlen)
-> 测试精度完全是 FP16；除非特别说明，其中 L=12， H=768， A=12
-> 关于Attention算子的尺寸设置参考 FlashAttention2（最大到16K）、Raptor-T（1k - 4k）、ByteTrans（64-1k）
-> 关于Triton融合算子的取值，参考的MCFuser和Chimera
++ `data/`: orignal data log in `data/MHA_performance` for Figure 10-11, `data/End2End_performance` for Figure 12, `data/Ablation_Studdy` for Figure 13, `data/Overhead_Analysis` for Figure 14. `data/Tuning_Cost` for Table 4.
 
-+ Attention算子
-  + 固定 hidden_dim = 768; head_num = 12; head_size = 64
-  + seq_len = 128, 256, 512, 1024, 2048, 4096 
-  + Batch_size = 1, 8, 16 
-  + 如果考虑的是TFLOPS为单位的话：Batch_size * seq_len = 8k 
-+ Tirton算子
-  + Batch GEMM chain
-    + (B, S, H) @ (B, H, 4H)=(B, S, 4H);   (B, S, 4H)@(B, 4H, H)=(B, S, H);
-    + 如果做批量测试（B, S, H）=  (1/8/16, 512/1024/2048, 64/128/256)
-  + GEMM + bias + act：
-    + (B, S, H)  同上
-  + GEMM + layerNorm：
-    + (B, S, H) @ (B, H, H) = (B, S, H)  ---layerNorm---> (B, S, H) 
-    + 经典取值(B, S, H)=(8, 512, 64)、**(8, 1024, 768)**;
++ `plot/`: quick poltting reproduction code to get the images in the paper, including `fig3/`, `fig4/`, `fig10-11/`, `fig12/`, `fig13/`, and `fig14/`. 
 
++ `script/`: `.sh` executable script to install the custom operator in STOF and execute it in full to reproduce the experimental results in the paper. Including `env_install`, `fig10-11.sh`, `fig12.sh`, `fig13.sh`, and `fig14.sh`. 
 
++ `src/`: The core source code implemented in STOF, especially the unified MHA kernels, is in `src/ops/src/***.cu` bound by `src/setup.py`. The baselines that can be run directly include PyTorch Native, PyTorch Compiled, ByteTransformer, FlashAttention2, and FlexAttention. MCFuser and Bolt need to be executed separately due to the complex compilation environment, wihich will be introduced later.
 
-## 调研复现
-1. 跑起来【SC24】MCFuser的工作 探索其中的生成文件。
-2. 探究工作 [PyTorch-FlexAttention](https://pytorch.org/blog/flexattention/) 观察生成的代码。希望发现其中 Attention Mask变体与编译算子融合之间的关系。
-3. 通过PyTorch的相关tutorial研究如何抓取算子，结论抓取、圈定在`fx.compile`的下降过程中有两个阶段（1）圈定1在`fx_graph`将操作打散的过程中，如调用`flash-attn`的操作 （2）圈定2在`torch.inductor`中，主要的算子融合策略可以和`the_missing_manusal.pdf`对上
-![](./images/fusion-cycle-stage.png)
+## Getting Started
+
+We recommend using the image `nvcr.io/nvidia/pytorch:24.09-py3` to directly obtain the container with the basic environment.
+
+```shell
+# pull docker images and enter container
+docker pull nvcr.io/nvidia/pytorch:24.09-py3
+docker run --gpus all --name AD-pap899-SC25 -itd nvcr.io/nvidia/pytorch:24.09-py3 /bin/bash
+
+# update PyTorch version 
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+
+# clone the repository and encter the directory
+git clone https://github.com/AD-pap899-SC25/SC25-STOF-AD.git
+cd SC25-STOF-AD
+
+# enter script directory 
+cd script
+# install operators and check the environment
+# according to running device input sm_{CUDAARCH}, e.g.,  A100:sm_80 4090:sm_89, 
+# so that for A100: bash env_install.sh 80, and for 4090: bash env_install.sh 89
+bash env_install.sh 80
+
+# for Figure10-11
+bash fig10-11.sh
+
+# for Figure12
+bash fig12.sh
+
+# for Figure13
+bash fig13.sh
+
+# for Figure14
+bash fig14.sh
+
+# for STOF in Table 4
+bash table4_STOF.sh
+```
+
+## Comparisons that need to be run separately in the Artifact
+
+For the comparison of Blselines MCFuser and Bolt, a lot of compilation and installation processes related to tvm and CUTLASS are involved. In order to reproduce this part of the experiment smoothly, we have uploaded the relevant necessary configuration files to [Google Drive](https://drive.google.com/file/d/17N-PfI0klMa1jHE-1YcpV5oNzjfcFxE4/view?usp=sharing). After downloading them and place the compressed package `ae-mcfuser-test.tar.gz` in `/src`, you need to execute the relevant installation script `script/MCFuser_install.sh`. The exact steps are as follows:
+
+```shell
+cd SC25-STOF-AD/src
+
+# download ae-mcfuser-test.tar.gz from Google Drive
+# uncompressed package this file 
+tar -xzvf ae-mcfuser-test.tar.gz
+
+# rename this directory
+mv ae-mcfuser-test3 ./MCFuser/mcfuser
+
+cd ../script
+
+# install MCFuser and Bolt
+bash MCFuser_install.sh
+
+# for MCFuser and Bolt in Table 4
+bash table4.sh
+```
