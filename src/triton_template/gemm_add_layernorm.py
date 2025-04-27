@@ -7,8 +7,6 @@ import math
 import os 
 os.environ["TRITON_PRINT_AUTOTUNING"] = "1"
 
-from triton.ops.matmul_perf_model import early_config_prune
-
 from triton.runtime import driver
 
 
@@ -46,7 +44,6 @@ def early_config_prune(configs, named_args, **kwargs):
             
         max_shared = driver.active.utils.get_device_properties(device)["max_shared_mem"]
         required_shared = (BLOCK_M + cfg.kwargs.get('BLOCK_SIZE_N', 64)) * BLOCK_K * num_stages * dtsize
-        # required_shared = (BLOCK_M + ) * BLOCK_K * num_stages * dtsize
         if required_shared > max_shared:
             continue
             
@@ -215,3 +212,4 @@ def benchmark_implementations():
 
 if __name__ == "__main__":
     benchmark_implementations()
+
