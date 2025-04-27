@@ -1,22 +1,21 @@
-### Comparisons that need to be run separately in the Artifact
+## Other Results
 
-For the comparison of Blselines MCFuser and Bolt, a lot of compilation and installation processes related to tvm and CUTLASS are involved. In order to reproduce this part of the experiment smoothly, we have uploaded the relevant necessary configuration files to [Google Drive](https://drive.google.com/file/d/17N-PfI0klMa1jHE-1YcpV5oNzjfcFxE4/view?usp=sharing). After downloading them, you need to execute the relevant installation script `script/MCFuser_install.sh`. The exact steps are as follows:
-
+For the comparison of MCFuser and Bolt, we have uploaded the relevant necessary configuration files to [Google Drive](https://drive.google.com/file/d/17N-PfI0klMa1jHE-1YcpV5oNzjfcFxE4/view?usp=sharing). The installation and reproduction steps are as follows:
 ```shell
 cd SC25-STOF-AD/src
 
 # download ae-mcfuser-test.tar.gz from Google Drive
-# compressed package this file 
+# uncompress the package
 tar -xzvf ae-mcfuser-test.tar.gz
 
 # rename this directory
 mv ae-mcfuser-test3 ./MCFuser/mcfuser
 
-cd ../script
+cd ../scripts
 
 # install MCFuser and Bolt
 bash MCFuser_install.sh
 
-# for MCFuser and Bolt in Table 4
+# for Table 4 (MCFuser and Bolt)
 bash table4.sh
 ```
