@@ -25,16 +25,12 @@ configs = [
 def early_config_prune(configs, named_args, **kwargs):
     device = torch.cuda.current_device()
     capability = torch.cuda.get_device_capability()
-    dtsize = named_args['A'].element_size()
-    dtype = named_args['A'].dtype
     
     pruned = []
     for cfg in configs:
         BLOCK_M = cfg.kwargs['BLOCK_SIZE_M']
         BLOCK_K = cfg.kwargs['BLOCK_SIZE_K']
         num_warps = cfg.num_warps
-        num_stages = cfg.num_stages
-        
         
         if (
             (BLOCK_M * BLOCK_K > 2048) or  
@@ -43,7 +39,7 @@ def early_config_prune(configs, named_args, **kwargs):
             continue
             
         max_shared = driver.active.utils.get_device_properties(device)["max_shared_mem"]
-        required_shared = (BLOCK_M + cfg.kwargs.get('BLOCK_SIZE_N', 64)) * BLOCK_K * num_stages * dtsize
+        required_shared = (BLOCK_M + cfg.kwargs.get('BLOCK_SIZE_N', 64)) * BLOCK_K * 2
         if required_shared > max_shared:
             continue
             
@@ -64,7 +60,6 @@ def early_config_prune(configs, named_args, **kwargs):
         return final_configs
     else:
         return [cfg for cfg in pruned if cfg.num_stages <= 2]
-
 
 @triton.autotune(
     configs=configs,
