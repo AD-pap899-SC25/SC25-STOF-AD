@@ -207,4 +207,3 @@ def benchmark_implementations():
 
 if __name__ == "__main__":
     benchmark_implementations()
-
